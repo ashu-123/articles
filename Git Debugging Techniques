@@ -1,0 +1,38 @@
+𝗚𝗶𝘁 𝗱𝗲𝗯𝘂𝗴𝗴𝗶𝗻𝗴 𝘁𝗲𝗰𝗵𝗻𝗶𝗾𝘂𝗲𝘀: 𝗔 𝗾𝘂𝗶𝗰𝗸 𝗴𝘂𝗶𝗱𝗲 𝘁𝗼 𝗲𝗳𝗳𝗲𝗰𝘁𝗶𝘃𝗲 𝗰𝗼𝗱𝗲 𝗲𝘅𝗽𝗹𝗼𝗿𝗮𝘁𝗶𝗼𝗻
+
+As developers, we use git in our day-to-day tasks for committing, branching, merging our changes in the codebase & pretty soon our codebase starts evolving exponentially. This vast codebase seldom contains bugs which can be very tedious for developers to track down. Well, not to worry, Git has got us covered. In addition to being primarily for version control, Git also provides a couple of commands to help debug our source code projects & help us hunt down a bug or culprit when things go wrong. 
+
+Let's look at 3 useful Git commands which we can leverage for efficacious debugging
+
+
+𝗚𝗶𝘁 𝗯𝗶𝘀𝗲𝗰𝘁
+
+• If it's not known what is breaking, and there have been dozens or hundreds of commits since the last state where we know the code worked, git bisect stands tall to help.
+
+• The bisect command does a 𝘣𝘪𝘯𝘢𝘳𝘺 𝘴𝘦𝘢𝘳𝘤𝘩 through the commit history(within the specified commit range) to help us identify as quickly as possible which commit introduced an issue.
+
+
+𝗚𝗶𝘁 𝗯𝗹𝗮𝗺𝗲
+
+• It is a tool that works on a specific file providing us commit details for every line
+
+• Every line in the response to the above command informs us about who was the last person that changed that line, the commit where it was done, and the timestamp of it.
+
+• In case we are unaware about the specific file(buggy), we can first run a git bisect binary search to track down the faulty commit followed by checking the faulty files using git blame
+
+
+𝗚𝗶𝘁 𝗴𝗿𝗲𝗽
+
+• It's like a dedicated search engine for code exploration & analysis helping to locate specific pieces of code/content within the codebase.
+
+• It is still very useful when we want to search only in certain files (using the pathspec as a restriction), when we want to search for a generic regex instead of a name of variable or function, when we want to search in another commit/specific branch.
+
+
+
+Leveraging the use of these tools, we can become a code detective ensuring bug free, quality code. Harness the power of these features to understand the who, the why & the how behind the changes in every line of code fostering transparency & accountability in our development process.
+
+
+
+
+
+#git #debugging #softwaredevelopment #bestpractices #codequality #productivity
