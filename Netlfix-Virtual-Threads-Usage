@@ -1,0 +1,34 @@
+𝗡𝗲𝘁𝗳𝗹𝗶𝘅 𝗮𝗱𝗼𝗽𝘁𝘀 𝗩𝗶𝗿𝘁𝘂𝗮𝗹 𝗧𝗵𝗿𝗲𝗮𝗱𝘀: 𝘀𝗻𝗲𝗮𝗸 𝗽𝗲𝗲𝗸 𝗶𝗻𝘁𝗼 𝗴𝗮𝗶𝗻𝘀 & 𝗽𝗶𝘁𝗳𝗮𝗹𝗹𝘀
+
+Netflix recently adopted one of the most promising features of Java 21 – Virtual Threads. While VTs showed early promise, they also brought unique challenges in real-world scenario. The early adoptions have started to report some critical pitfalls, which the Project Loom team is working upon.
+
+
+𝗩𝗶𝗿𝘁𝘂𝗮𝗹 𝗧𝗵𝗿𝗲𝗮𝗱𝘀:
+
+- lightweight threads that dramatically reduce the effort of writing, maintaining, and observing high-throughput concurrent applications
+
+- can be suspended & resumed automatically when blocking operations occur, thus freeing the underlying OS threads to be reused for other ops
+
+
+𝗜𝘀𝘀𝘂𝗲 𝘀𝗽𝗼𝘁𝘁𝗲𝗱 𝗯𝘆 𝗡𝗲𝘁𝗳𝗹𝗶𝘅 𝗘𝗻𝗴𝗶𝗻𝗲𝗲𝗿𝘀:
+
+On the Netflix Tech Blog, the JVM Ecosystem team shared insights about the issue where microservices which ran on SpringBoot 3 backed by Java 21, with an embedded Tomcat server experienced intermittent timeouts & hung instances.
+
+Surprisingly, the JVM instances remained active enabling Tomcat to accept a new connection on a socket followed by creation of a VT upon arrival of every new request, passing the thread/request to the executor for processing. This was characterized by a significant increase in sockets stuck in a 𝘤𝘭𝘰𝘴𝘦𝘞𝘢𝘪𝘵 state.
+
+On initial inspection, the team found thousands of “blank” virtual threads i.e. virtual thread objects being created but neither were they started nor did they have any stack trace. Further digging revealed that the issue stemmed up from the interaction of virtual threads with blocking operations & OS thread availability. Carefully combing the thread dumps, it was revealed that all OS level threads were exhausted with each having a VT 𝗽𝗶𝗻𝗻𝗲𝗱 over to them. These VTs were spanning through a 𝘴𝘺𝘯𝘤𝘩𝘳𝘰𝘯𝘪𝘻𝘦𝘥 block/method waiting to acquire a lock. The newly created VT cannot be scheduled because all of the OS threads in the fork-join pool are 𝗽𝗶𝗻𝗻𝗲𝗱 & never released making VTs stuck in the queue, while still holding the socket.
+
+Netflix's JVM Ecosystem team used a heap dump to inspect the lock's state & confirmed that no thread owned it, yet the threads waiting for it were unable to proceed. This was a transient state that should have resolved but was instead causing a deadlock-like situation.
+
+
+𝗞𝗲𝘆 𝘁𝗮𝗸𝗲𝗮𝘄𝗮𝘆𝘀:
+
+- It must be noted that the issue isn’t with VT solely but with the interplay b/w VTs & locking primitives/monitors
+
+- The pinning issue happens with usage of synchronized block. An easy quick fix is to replace all the synchronized code with Reentrant Locks & it should work just fine
+
+
+VTs simple thread-per-task paradigm is a breath of fresh air over the complexities of reactive frameworks, async-await, etc. However, it’s crucial to approach their implementation with caution & subject them to rigorous testing at production scale.
+
+
+#Netflix #Engineering #VirtualThread #ProjectLoom
