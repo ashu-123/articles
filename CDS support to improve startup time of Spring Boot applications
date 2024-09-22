@@ -1,0 +1,50 @@
+𝗟𝗲𝘃𝗲𝗿𝗮𝗴𝗶𝗻𝗴 𝗖𝗗𝗦 𝘀𝘂𝗽𝗽𝗼𝗿𝘁 𝘁𝗼 𝗶𝗺𝗽𝗿𝗼𝘃𝗲 𝘀𝘁𝗮𝗿𝘁𝘂𝗽 𝘁𝗶𝗺𝗲 𝗼𝗳 𝗦𝗽𝗿𝗶𝗻𝗴 𝗕𝗼𝗼𝘁 𝗔𝗽𝗽𝗹𝗶𝗰𝗮𝘁𝗶𝗼𝗻𝘀
+
+As software engineers, nothing is more frustrating than observing slow startup of our applications. The start up time is critical for several factors -
+• Developers need to restart the app numerous times during development
+• Deployments need to be as fast as possible
+• It's important to get rid of cold-start, & the equation time==money applies
+
+So, how can we accelerate the bootup time of our apps. 𝗖𝗹𝗮𝘀𝘀 𝗗𝗮𝘁𝗮 𝗦𝗵𝗮𝗿𝗶𝗻𝗴! Spring Boot 3.3 introduces support for CDS in a production-ready fashion.
+
+
+𝗪𝗵𝗮𝘁 𝗶𝘀 𝗖𝗗𝗦?
+
+Class Data Sharing(CDS) is a mature technology already available & used in most JVM that can help to reduce the startup time & memory footprint of Java applications.
+
+To use this feature, a CDS archive should be created for the particular classpath of the app. Spring provides a hook-point to ease the creation of the archive. Once the archive is available, users should opt in to use it via a JVM flag.
+
+To simplify, we are probably already using CDS without knowing but only for optimizing JDK classes, while the classes of our applications don't take advantage of it.
+To unlock this potential, Spring Boot 3.3 provides 2 features -
+
+• Self-extracting executable jar
+• Buildpacks CDS support
+
+CDS in Spring Boot comprises of the following steps-
+
+• We perform a training run of the application
+• This training run outputs a *.jsa file
+• This .jsa file is then used to start the app faster
+
+This feature is quite flexible & efficient but requires a lot of manual steps & can become messy with containers. Thus, spring boot and buildpacks provide integrated support for CDS.
+
+It has been reported that CDS allows approximately 1.5x–2x improvement in startup times & 16% lower memory consumption.
+
+
+𝗙𝘂𝗿𝘁𝗵𝗲𝗿 𝗲𝗻𝗵𝗮𝗻𝗰𝗲𝗺𝗲𝗻𝘁𝘀 𝘄𝗶𝘁𝗵 𝗣𝗿𝗼𝗷𝗲𝗰𝘁 𝗟𝗮𝘆𝗱𝗲𝗻
+
+𝗣𝗿𝗼𝗷𝗲𝗰𝘁 𝗟𝗮𝘆𝗱𝗲𝗻, sponsored by HotSpot & Core Libraries group, aims at improving the startup time, time to peak performance & footprints of Java programs. Project Layden has recently introduced "premain" optimizations(𝘣𝘢𝘴𝘪𝘤𝘢𝘭𝘭𝘺 𝘊𝘋𝘚 + 𝘚𝘱𝘳𝘪𝘯𝘨 𝘈𝘖𝘛), already capable of providing a 15% faster startup time on JVM.
+
+Additional capabilities Project Layden aims at include:-
+
+• Smaller container images (by removing the CDS archive of the JDK to keep only the application one).
+• Ahead-Of-Time warmup to have better performance after startup & reach peak performance faster.
+
+
+The Spring team is working hard on supporting these new capabilities while minimizing the impact for Spring application development, providing straightforward upgrade paths for the many kinds of applications out there.
+
+These improvements look very promising & let's strive to try these out in our projects enhancing the runtime efficiency of our applications.
+
+𝘏𝘢𝘱𝘱𝘺 𝘭𝘦𝘢𝘳𝘯𝘪𝘯𝘨!!
+
+hashtag#SpringBoot3 hashtag#ProjectLayden hashtag#java hashtag#jvm hashtag#performance
