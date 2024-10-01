@@ -1,0 +1,28 @@
+𝗕𝘂𝗶𝗹𝗱𝗶𝗻𝗴 𝗥𝗲𝘀𝗶𝗹𝗶𝗲𝗻𝘁 𝗠𝗶𝗰𝗿𝗼𝘀𝗲𝗿𝘃𝗶𝗰𝗲𝘀: 𝗣𝗮𝘁𝘁𝗲𝗿𝗻𝘀 & 𝘀𝘁𝗿𝗮𝘁𝗲𝗴𝗶𝗲𝘀 𝗳𝗼𝗿 𝗳𝗮𝗶𝗹𝘂𝗿𝗲 𝗿𝗲𝗰𝗼𝘃𝗲𝗿𝘆
+
+Software engineers always strive to build faultless services which are immune to failures but even a minor error could potentially take down an entire monolith single-handedly, rendering it unfunctional. Well, this risk is highly reduced by breaking a giant monolith into a set of loosely coupled services, popularly known as microservices. Yet, failures are inevitable. Thus, handling the partial failures, preventing failures to cascade down to other services, recovering from failures & keeping the app functional even in minor breakages becomes key to a sustainable & performant design.
+
+Let's dissect how can we introduce resiliency in such a distributed architecture, ensuring the system doesn't collapse entirely.
+
+
+𝗪𝗵𝗮𝘁 𝗶𝘀 𝗥𝗲𝘀𝗶𝗹𝗶𝗲𝗻𝗰𝘆?
+
+Resilience is the ability of a software system to recover from failures & continue to function correctly. Resiliency in services aim to minimize the impact, range & frequency of failures. Resilient systems strive to ensure 𝘩𝘪𝘨𝘩 𝘢𝘷𝘢𝘪𝘭𝘢𝘣𝘪𝘭𝘪𝘵𝘺 & aim to restore functionality in the least time possible.
+
+
+𝗣𝗮𝘁𝘁𝗲𝗿𝗻𝘀 & 𝘀𝘁𝗿𝗮𝘁𝗲𝗴𝗶𝗲𝘀 𝗳𝗼𝗿 𝗯𝘂𝗶𝗹𝗱𝗶𝗻𝗴 𝗮 𝗿𝗲𝘀𝗶𝗹𝗶𝗲𝗻𝘁 𝗮𝗿𝗰𝗵𝗶𝘁𝗲𝗰𝘁𝘂𝗿𝗲:
+
+• 𝗖𝗶𝗿𝗰𝘂𝗶𝘁 𝗕𝗿𝗲𝗮𝗸𝗲𝗿: A pattern modelled after an electric circuit breaker, circuit breakers in software help manage failure in inter-service communication. Upon monitoring enough remote service call failures or calls taking too long, the circuit breaker intercedes to stop the calls temporarily allowing the remote service to recover.
+
+• 𝗙𝗮𝗹𝗹𝗯𝗮𝗰𝗸 𝗽𝗿𝗼𝗰𝗲𝘀𝘀𝗶𝗻𝗴: With the fallback pattern, when a remote service call fails, rather than generating an exception, the service consumer executes an alternative code path trying to carry out actions through other means, while the faulty remote service gains some time to return to normalcy.
+
+• 𝗕𝘂𝗹𝗸𝗵𝗲𝗮𝗱 𝗽𝗮𝘁𝘁𝗲𝗿𝗻: It's a strategy to isolate different parts of the system to contain failures. This level of isolation helps in preventing failures in one component spreading to another. We can break the calls to remote resources into segregated thread pools reducing the risk that a faulty remote might eat up all the computation resources of a client app.
+
+• 𝗖𝗹𝗶𝗲𝗻𝘁-𝘀𝗶𝗱𝗲 𝗹𝗼𝗮𝗱 𝗯𝗮𝗹𝗮𝗻𝗰𝗶𝗻𝗴: Its a method in which distribution of network load is managed by the client by making a request to a service registry to obtain a list of available remote service instances. The client then uses a predefined algorithm to determine which service to call.
+
+
+Ensuring resilience in microservices is key to maintaining high availability, performance & customer satisfaction. By implementing comprehensive failure recovery strategies, we can protect our systems against inevitable failures, minimizing their impact.
+
+
+
+hashtag#microservices hashtag#softwarearchitecture hashtag#systemdesign
