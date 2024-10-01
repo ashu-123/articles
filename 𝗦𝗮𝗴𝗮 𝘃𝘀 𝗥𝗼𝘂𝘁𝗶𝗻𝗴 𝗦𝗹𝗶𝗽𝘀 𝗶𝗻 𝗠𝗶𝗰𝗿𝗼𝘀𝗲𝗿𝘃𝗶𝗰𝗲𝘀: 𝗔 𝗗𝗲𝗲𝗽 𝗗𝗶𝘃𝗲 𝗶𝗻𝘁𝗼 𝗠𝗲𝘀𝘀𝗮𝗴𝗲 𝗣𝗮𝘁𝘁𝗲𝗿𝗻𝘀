@@ -1,0 +1,56 @@
+𝗦𝗮𝗴𝗮 𝘃𝘀 𝗥𝗼𝘂𝘁𝗶𝗻𝗴 𝗦𝗹𝗶𝗽𝘀 𝗶𝗻 𝗠𝗶𝗰𝗿𝗼𝘀𝗲𝗿𝘃𝗶𝗰𝗲𝘀: 𝗔 𝗗𝗲𝗲𝗽 𝗗𝗶𝘃𝗲 𝗶𝗻𝘁𝗼 𝗠𝗲𝘀𝘀𝗮𝗴𝗲 𝗣𝗮𝘁𝘁𝗲𝗿𝗻𝘀
+
+In the evolving landscape of microservices architecture, managing complex workflows and maintaining data consistency across services can be challenging. Two prominent patterns that address these challenges are the Saga and Routing Slip patterns. Let’s explore each pattern, their strengths & when to use them.
+
+
+𝗪𝗵𝗮𝘁 𝗶𝘀 𝗮 𝗦𝗮𝗴𝗮?
+
+A Saga is a design pattern that helps manage distributed transactions by breaking them into a series of smaller, independent transactions. Each of these transactions is called a "saga step," which can be either a command or an event. If a step fails, the saga executes compensating transactions to roll back changes and ensure data consistency.
+
+𝗞𝗲𝘆 𝗖𝗵𝗮𝗿𝗮𝗰𝘁𝗲𝗿𝗶𝘀𝘁𝗶𝗰𝘀 𝗼𝗳 𝗦𝗮𝗴𝗮𝘀:
+
+• Each service involved in a saga is responsible for its own data
+• Failure in one step triggers compensatory actions for previous steps
+• Services communicate asynchronously, enhancing scalability
+
+𝗨𝘀𝗲 𝗰𝗮𝘀𝗲𝘀:
+
+• When operations span multiple microservices that need to maintain consistency
+• When eventual consistency is acceptable
+• In scenarios where you can define clear compensating transactions
+
+
+𝗪𝗵𝗮𝘁 𝗶𝘀 𝗮 𝗥𝗼𝘂𝘁𝗶𝗻𝗴 𝗦𝗹𝗶𝗽?
+
+The Routing Slip pattern provides a way to route messages through a series of predetermined steps, often defined at runtime. Each step in the routing slip represents a service that processes the message & the slip itself can change dynamically based on business needs.
+
+𝗞𝗲𝘆 𝗖𝗵𝗮𝗿𝗮𝗰𝘁𝗲𝗿𝗶𝘀𝘁𝗶𝗰𝘀 𝗼𝗳 𝗥𝗼𝘂𝘁𝗶𝗻𝗴 𝗦𝗹𝗶𝗽𝘀:
+
+• The path can change based on conditions or input data
+• Services are decoupled, allowing them to evolve independently
+• New services can be added or removed from the routing slip without significant rework
+
+𝗨𝘀𝗲 𝗰𝗮𝘀𝗲𝘀:
+
+• When dynamic and flexible workflows are needed
+• In scenarios where processing steps can change based on real-time data
+• When there are multiple, independent services that can handle specific tasks
+
+
+𝗦𝗮𝗴𝗮 𝘃𝘀 𝗥𝗼𝘂𝘁𝗶𝗻𝗴 𝗦𝗹𝗶𝗽𝘀:
+
+1. Control Flow:
+ Saga: The control flow is linear & follows a predefined sequence.
+ Routing Slip: The flow can change dynamically, adapting to current needs.
+
+2. Error Handling:
+ Saga: Utilizes compensating transactions to handle failures.
+ Routing Slip: Error handling is often service-specific & each service must manage its own failures.
+
+3. Use Case Suitability:
+ Saga: Best suited for operations requiring strong consistency across services.
+ Routing Slip: Ideal for workflows where steps can vary or require real-time adjustments.
+
+Both the patterns can help us build effective microservice architectures, enhancing microservice resilience & scalability. A good understanding can help us choose b/w them depending on the business needs and requirements.
+
+#Microservices #SoftwareArchitecture #DistributedSystems #EventDrivenArchitecture
