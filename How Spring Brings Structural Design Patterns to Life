@@ -1,0 +1,45 @@
+𝗛𝗼𝘄 𝗦𝗽𝗿𝗶𝗻𝗴 𝗙𝗿𝗮𝗺𝗲𝘄𝗼𝗿𝗸 𝗕𝗿𝗶𝗻𝗴𝘀 𝗦𝘁𝗿𝘂𝗰𝘁𝘂𝗿𝗮𝗹 𝗗𝗲𝘀𝗶𝗴𝗻 𝗣𝗮𝘁𝘁𝗲𝗿𝗻𝘀 𝘁𝗼 𝗟𝗶𝗳𝗲🚀
+
+Structural design patterns are all about how classes and objects are composed to form larger structures to enable flexibility, extensibility, and clean architecture.
+
+Here are some deep-rooted Structural Design Patterns working silently behind the scenes in the Spring framework:
+
+
+✅ 𝗣𝗿𝗼𝘅𝘆 𝗣𝗮𝘁𝘁𝗲𝗿𝗻: Provide a placeholder for another object to control access to it
+
+ • 𝘚𝘱𝘳𝘪𝘯𝘨 𝘈𝘖𝘗 (𝘈𝘴𝘱𝘦𝘤𝘵-𝘖𝘳𝘪𝘦𝘯𝘵𝘦𝘥 𝘗𝘳𝘰𝘨𝘳𝘢𝘮𝘮𝘪𝘯𝘨) and 𝘵𝘳𝘢𝘯𝘴𝘢𝘤𝘵𝘪𝘰𝘯𝘢𝘭 support are heavily dependent on the Proxy pattern.
+
+ • Behind that simple annotation is a dynamically created proxy managing cross-cutting concerns like logging, security, and transactions.
+
+
+✅ 𝗗𝗲𝗰𝗼𝗿𝗮𝘁𝗼𝗿 𝗣𝗮𝘁𝘁𝗲𝗿𝗻: Attach additional responsibilities to an object dynamically
+
+ • Used in the BeanPostProcessor.
+
+ • Through 𝘉𝘦𝘢𝘯𝘗𝘰𝘴𝘵𝘗𝘳𝘰𝘤𝘦𝘴𝘴𝘰𝘳, Spring dynamically enhances beans without modifying the original logic.
+
+
+✅ 𝗔𝗱𝗮𝗽𝘁𝗲𝗿 𝗣𝗮𝘁𝘁𝗲𝗿𝗻: Convert the interface of a class into another interface clients expect
+
+ • 𝘚𝘱𝘳𝘪𝘯𝘨 𝘔𝘝𝘊 uses 𝘏𝘢𝘯𝘥𝘭𝘦𝘳𝘈𝘥𝘢𝘱𝘵𝘦𝘳 to call different types of controllers (like @Controller, HttpRequestHandler, etc.) in a uniform way.
+
+ • It's the glue that keeps the dispatcher decoupled from controller implementations.
+
+
+✅ 𝗙𝗮𝗰𝗮𝗱𝗲 𝗣𝗮𝘁𝘁𝗲𝗿𝗻: Provide a simplified interface to a complex subsystem
+
+ • Spring provides simplified interfaces for many subsystems (ORM, Security, Messaging) using the Facade pattern.
+
+ • 𝘑𝘥𝘣𝘤𝘛𝘦𝘮𝘱𝘭𝘢𝘵𝘦 and 𝘙𝘦𝘴𝘵𝘛𝘦𝘮𝘱𝘭𝘢𝘵𝘦 are perfect examples—wrapping complex logic like connection handling or HTTP calls behind a clean, developer-friendly API.
+
+
+✅ 𝗖𝗼𝗺𝗽𝗼𝘀𝗶𝘁𝗲 𝗣𝗮𝘁𝘁𝗲𝗿𝗻: Compose objects into tree structures to represent part-whole hierarchies
+
+ • Used in 𝘚𝘱𝘳𝘪𝘯𝘨 𝘚𝘦𝘤𝘶𝘳𝘪𝘵𝘺 and 𝘚𝘱𝘳𝘪𝘯𝘨 𝘌𝘹𝘱𝘳𝘦𝘴𝘴𝘪𝘰𝘯 𝘓𝘢𝘯𝘨𝘶𝘢𝘨𝘦 (SpEL).
+
+ • Seen in the internals of SpEL (Spring Expression Language) and Spring Security, where complex expressions and access rules are modeled as trees of evaluable nodes.
+
+
+💡 Next time you're annotating a method or wiring a bean, remember: you're not just writing config—you're harnessing time-tested patterns applied at framework scale.
+
+hashtag#Java hashtag#SpringFramework hashtag#DesignPatterns hashtag#SoftwareEngineering hashtag#StructuralPatterns hashtag#SpringBoot hashtag#CleanCode hashtag#Architecture
