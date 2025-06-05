@@ -1,0 +1,61 @@
+𝗔𝘀 𝗮 𝗗𝗲𝘃𝗲𝗹𝗼𝗽𝗲𝗿, 𝗦𝗵𝗼𝘂𝗹𝗱 𝗜 𝗥𝘂𝗻 𝗟𝗟𝗠𝘀 𝗟𝗼𝗰𝗮𝗹𝗹𝘆 𝗼𝗿 𝗨𝘀𝗲 𝗮 𝗣𝗮𝗶𝗱 𝗔𝗣𝗜?
+
+A question I keep revisiting as an SDE working with AI in real-world products. As language models become key tools in our dev workflows and applications, one decision keeps resurfacing:
+
+👉 Should I run models locally or purchase API credits from proprietary providers?
+
+After testing both options, here’s a breakdown from the trenches — including some practical tools and examples that helped me navigate the trade-offs.
+
+⚙️ 𝗥𝘂𝗻𝗻𝗶𝗻𝗴 𝗟𝗟𝗠𝘀 𝗟𝗼𝗰𝗮𝗹𝗹𝘆
+
+🤔Challenges:
+ • Model size constraints - Demands decent hardware (especially for >7B param models).
+ • Setup can be finicky: tokenizers, quantization, memory tuning, batching, and model loading all require attention.
+ • Updates and performance tuning are on you.
+ • Faster battery drainage than typical tasks.
+ • Initial download - The first time using a model needs to download several GBs, can take a few minutes depending on the connection.
+
+👍Benefits:
+ • Total control — no rate limits or surprise outages.
+ • Long-term savings for inference-heavy apps.
+ • Data stays local — ideal for security-sensitive workflows.
+ • Works like a charm in offline mode
+ • Lower latency due to no network communication
+
+💡Examples:
+ • Use Ollama to run models like llama3, mistral, or gemma locally with just one command.
+ • Combine with LangChain or llama.cpp for more customization and chaining logic.
+
+🔧Use Cases:
+ • Internal dev tools and code assistants where latency and privacy matter.
+ • On-device AI features for desktop or edge apps.
+ • Batch processing tasks where you control throughput.
+ • Situations where internet connectivity is limited or restricted.
+
+☁️ 𝗨𝘀𝗶𝗻𝗴 𝗣𝗿𝗼𝗽𝗿𝗶𝗲𝘁𝗮𝗿𝘆 𝗔𝗣𝗜𝘀
+
+🤔Challenges:
+ • Costs can add up fast with high-volume or long-context usage.
+ • Limited visibility into how models reason or respond.
+ • Data governance and privacy policies may be restrictive in regulated environments.
+
+👍Benefits:
+ • Zero setup — go from idea to working prototype in hours.
+ • Access to cutting-edge models with continuous improvements.
+ • No need to manage infrastructure or deal with GPU provisioning.
+
+💡Examples:
+ • OpenAI
+ • Anthropic (Claude)
+ • Cohere, Mistral API, Groq, Google AI Studio, Together.ai: All offer free or subsidized starter tiers for developers.
+
+🔧Use Cases:
+ • MVPs, UX-focused features, or public-facing applications where reliability and model quality matter most.
+ • Teams without infra expertise or time for tuning.
+
+
+✌️Personally I've found running LLMs locally using Ollama to be very fruitful. Just pulling the required model from the registry and spinning it up quickly serves the purpose well. I usually prefer a multimodal model like gemma3:4b.
+
+What setups have worked best for you? Any lessons learned the hard way?
+
+hashtag#LLMs hashtag#SoftwareDevelopment hashtag#OpenSourceAI hashtag#GenAI hashtag#DeveloperTools hashtag#OpenAI hashtag#Claude hashtag#Ollama
