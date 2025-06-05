@@ -1,0 +1,48 @@
+𝗛𝗼𝘄 𝗦𝗽𝗿𝗶𝗻𝗴 𝗙𝗿𝗮𝗺𝗲𝘄𝗼𝗿𝗸 𝗯𝗿𝗶𝗻𝗴𝘀 𝗕𝗲𝗵𝗮𝘃𝗶𝗼𝗿𝗮𝗹 𝗗𝗲𝘀𝗶𝗴𝗻 𝗣𝗮𝘁𝘁𝗲𝗿𝗻𝘀 𝘁𝗼 𝗟𝗶𝗳𝗲! 🚀
+
+Behavioral design patterns deal with object interaction and responsibility distribution, ensuring efficient communication between objects while keeping the system flexible and scalable.
+
+From handling application configurations to event-driven systems, Spring Boot utilizes several of these patterns under the hood to streamline development and ensure scalability🛠️. Here's how:
+
+✅ 𝗦𝘁𝗿𝗮𝘁𝗲𝗴𝘆 𝗣𝗮𝘁𝘁𝗲𝗿𝗻: Handling Configurations at Runtime
+
+ • @𝘗𝘳𝘰𝘧𝘪𝘭𝘦 𝘈𝘯𝘯𝘰𝘵𝘢𝘵𝘪𝘰𝘯: Defines different strategies for beans that should be loaded for specific profiles (like dev, prod, test, etc.).
+
+ • @𝘊𝘰𝘯𝘥𝘪𝘵𝘪𝘰𝘯𝘢𝘭 𝘈𝘯𝘯𝘰𝘵𝘢𝘵𝘪𝘰𝘯: Allows conditional bean registration based on various conditions (e.g., the presence of a specific class, property, etc.).
+
+
+✅ 𝗢𝗯𝘀𝗲𝗿𝘃𝗲𝗿 𝗣𝗮𝘁𝘁𝗲𝗿𝗻: Event-Driven Architecture with Application Events
+
+Spring Boot uses the Observer Pattern heavily in its event-driven model.
+
+ • Spring Boot’s 𝘈𝘱𝘱𝘭𝘪𝘤𝘢𝘵𝘪𝘰𝘯𝘌𝘷𝘦𝘯𝘵𝘗𝘶𝘣𝘭𝘪𝘴𝘩𝘦𝘳 provides a way to create custom events that can be observed by any listener. When an event is published, all listeners registered for that event will receive and handle it.
+
+
+✅ 𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗣𝗮𝘁𝘁𝗲𝗿𝗻: Exposing Operations as HTTP Endpoints
+
+The Command Pattern is used in Spring Boot’s 𝘈𝘤𝘵𝘶𝘢𝘵𝘰𝘳 module, which exposes management endpoints that execute different commands in response to HTTP requests.
+
+ • These endpoints encapsulate actions as commands, like health checks, metrics, and application info.
+
+ • The @𝘌𝘯𝘥𝘱𝘰𝘪𝘯𝘵 and @𝘙𝘦𝘢𝘥𝘖𝘱𝘦𝘳𝘢𝘵𝘪𝘰𝘯 annotations are part of the Actuator framework where different commands (operations) are executed when an HTTP request hits a specific endpoint.
+
+
+✅ 𝗖𝗵𝗮𝗶𝗻 𝗼𝗳 𝗥𝗲𝘀𝗽𝗼𝗻𝘀𝗶𝗯𝗶𝗹𝗶𝘁𝘆: Security Filters in Spring Security
+
+Spring Boot’s 𝘚𝘱𝘳𝘪𝘯𝘨 𝘚𝘦𝘤𝘶𝘳𝘪𝘵𝘺 framework makes extensive use of the Chain of Responsibility Pattern through its 𝘧𝘪𝘭𝘵𝘦𝘳 𝘤𝘩𝘢𝘪𝘯.
+
+ • The security filters process requests in sequence, allowing different filters to handle a specific security concern.
+
+ • Each filter checks for different conditions (e.g., authentication, CSRF protection) until either of them decides to block or allow it.
+
+
+✅ 𝗦𝘁𝗮𝘁𝗲 𝗣𝗮𝘁𝘁𝗲𝗿𝗻: Managing Workflow with Spring State Machine
+
+ • The State Pattern is used in 𝘚𝘱𝘳𝘪𝘯𝘨 𝘚𝘵𝘢𝘵𝘦 𝘔𝘢𝘤𝘩𝘪𝘯𝘦 where complex workflows are represented with different states and transitions. 
+
+ • It lets us define states, events, and transitions, allowing the application to change its behavior based on the current state.
+
+
+🛠️Whether building a simple web app or a complex enterprise solution, Spring Boot’s powerful design underpinnings always simplifies software architecture!
+
+hashtag#SpringBoot hashtag#SoftwareDesign hashtag#BehavioralPatterns hashtag#SpringFramework hashtag#SoftwareArchitecture hashtag#DesignPatterns
