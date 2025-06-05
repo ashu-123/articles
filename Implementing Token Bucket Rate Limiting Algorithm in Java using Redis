@@ -1,0 +1,40 @@
+𝗜𝗺𝗽𝗹𝗲𝗺𝗲𝗻𝘁𝗶𝗻𝗴 𝗧𝗼𝗸𝗲𝗻 𝗕𝘂𝗰𝗸𝗲𝘁 𝗥𝗮𝘁𝗲 𝗟𝗶𝗺𝗶𝘁𝗶𝗻𝗴 𝗔𝗹𝗴𝗼𝗿𝗶𝘁𝗵𝗺 𝗶𝗻 𝗝𝗮𝘃𝗮 𝘂𝘀𝗶𝗻𝗴 𝗥𝗲𝗱𝗶𝘀
+
+Continuing with the previous posts on Rate limiting algorithms, let's check out the implementation of the Token Bucket Rate Limiting algorithm. It works by filling a bucket with tokens at a fixed rate (e.g., 1 token/sec). Each request consumes a token, and if no tokens are available, the request is rejected. The bucket has a maximum capacity, so it can handle bursts of traffic as long as the burst doesn’t exceed the number of tokens in the bucket.
+
+𝗦𝘁𝗲𝗽𝘀 𝘁𝗼 𝗶𝗺𝗽𝗹𝗲𝗺𝗲𝗻𝘁:
+
+1. Define a Token Refill Rate - Set a rate at which tokens are added to the bucket, such as 1 token/sec.
+
+2. Track Token Consumption - For each incoming request, deduct 1 token from the bucket.
+
+3. Refill Tokens - Continuously refill the bucket at the defined rate, up to its max capacity, ensuring unused tokens can accumulate for future bursts.
+
+4. Rate Limit Check - Check if there are enough tokens in the bucket. If the bucket is empty, reject the request until tokens are replenished.
+
+𝗜𝗺𝗽𝗹𝗲𝗺𝗲𝗻𝘁𝗮𝘁𝗶𝗼𝗻 𝗱𝗲𝘁𝗮𝗶𝗹𝘀:
+
+𝗝𝗲𝗱𝗶𝘀 is a popular Java library used to interact with Redis and I've used it for implementing our Rate Limiter because it provides a simple and intuitive API for executing Redis commands from JVM applications.
+
+The first step is to store each client’s token count and last refill time in Redis using unique keys. 
+
+Next, retrieve the current token count and the last refill time to calculate how many tokens should be added based on the time elapsed since the last refill.
+
+Now compare the current token count to determine if the request can be allowed. If tokens are available, deduct one token, else, block the request.
+
+Finally, I updated the token count and last refill time in Redis.
+
+𝗧𝗲𝘀𝘁𝗶𝗻𝗴 𝘁𝗵𝗲 𝗥𝗮𝘁𝗲 𝗟𝗶𝗺𝗶𝘁𝗲𝗿:
+
+To ensure the Rate Limiter behaves as expected, I've written tests for various scenarios. For this, I've employed the following tool:
+
+𝗥𝗲𝗱𝗶𝘀 𝗧𝗲𝘀𝘁𝗖𝗼𝗻𝘁𝗮𝗶𝗻𝗲𝗿𝘀: This library spins up an isolated Redis container for testing. This means we don’t need to rely on an external Redis server during our tests. Once the tests are done, the container is stopped, leaving no leftover data.
+
+I've tried covering the following test scenarios to ensure the implementation works as expected
+
+1. Verifying Requests Within the Bucket Capacity
+2. Verifying Requests Are Denied When Bucket is Empty
+3. Verifying Bucket is Gradually Refilled
+4. Verifying Independent Handling of Multiple Clients
+5. Verifying Token Refill Does Not Exceed Bucket Capacity
+6. Verifying Denied Requests Do Not Affect Token Count
