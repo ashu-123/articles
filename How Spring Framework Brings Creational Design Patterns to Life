@@ -1,0 +1,79 @@
+𝗛𝗼𝘄 𝗦𝗽𝗿𝗶𝗻𝗴 𝗙𝗿𝗮𝗺𝗲𝘄𝗼𝗿𝗸 𝗕𝗿𝗶𝗻𝗴𝘀 𝗖𝗿𝗲𝗮𝘁𝗶𝗼𝗻𝗮𝗹 𝗗𝗲𝘀𝗶𝗴𝗻 𝗣𝗮𝘁𝘁𝗲𝗿𝗻𝘀 𝘁𝗼 𝗟𝗶𝗳𝗲! 🚀
+
+If you’re a fan of hashtag#DesignPatterns and use hashtag#SpringFramework, here's something that might surprise you:
+
+👉 Spring uses almost every Creational Design Pattern under the hood — and we use them every day without even realizing it!
+
+Creational patterns abstract the instantiation process and help make a system independent of how its objects are created, composed, and represented. The main ones are:
+
+ • Singleton
+ • Factory Method
+ • Abstract Factory
+ • Builder
+ • Prototype
+
+✅ 𝟭. 𝗦𝗶𝗻𝗴𝗹𝗲𝘁𝗼𝗻 𝗣𝗮𝘁𝘁𝗲𝗿𝗻 – 𝗢𝗻𝗲 𝗕𝗲𝗮𝗻 𝗹𝗶𝘃𝗲𝘀 𝘁𝗵𝗿𝗼𝘂𝗴𝗵𝗼𝘂𝘁 𝘁𝗵𝗲 𝗰𝗼𝗻𝘁𝗲𝘅𝘁
+
+ • In Spring, all beans are Singleton by default (within a container).
+ • No need for manual synchronization or getInstance() hacks.
+
+@Component
+public class EmailService {
+ // Only one instance per context
+}
+
+📌 Use Case: Service classes, Repositories, Controllers — Spring manages lifecycle & ensures one shared instance.
+
+✅ 𝟮. 𝗙𝗮𝗰𝘁𝗼𝗿𝘆 𝗠𝗲𝘁𝗵𝗼𝗱 𝗣𝗮𝘁𝘁𝗲𝗿𝗻 – 𝗔𝗹𝗹𝗼𝘄𝗶𝗻𝗴 𝗦𝗽𝗿𝗶𝗻𝗴 𝘁𝗼 𝗖𝗿𝗲𝗮𝘁𝗲 𝗜𝘁
+
+ • Using @Bean methods or static factory methods to tell Spring how to create a bean.
+
+@Bean
+public DataSource dataSource() {
+ return DataSourceBuilder.create()
+ .url("jdbc:h2:mem:test")
+ .build(); // Factory Method in action!
+}
+
+📌 Use Case: Creating complex or configurable beans like DataSource, RestTemplate, WebClient.
+
+✅ 𝟯. 𝗔𝗯𝘀𝘁𝗿𝗮𝗰𝘁 𝗙𝗮𝗰𝘁𝗼𝗿𝘆 𝗣𝗮𝘁𝘁𝗲𝗿𝗻 – 𝗧𝗵𝗲 𝗕𝗲𝗮𝗻 𝗙𝗮𝗰𝘁𝗼𝗿𝘆 𝗜𝘁𝘀𝗲𝗹𝗳
+
+ • Spring’s ApplicationContext and BeanFactory are textbook Abstract Factories.
+ • Ask for a bean by name or type, and Spring decides how to create it.
+
+var context = new AnnotationConfigApplicationContext(AppConfig.class);
+UserService service = context.getBean(UserService.class);
+
+📌 Use Case: Centralized bean creation across different modules without tight coupling.
+
+✅ 𝟰. 𝗕𝘂𝗶𝗹𝗱𝗲𝗿 𝗣𝗮𝘁𝘁𝗲𝗿𝗻 – 𝗙𝗹𝘂𝗲𝗻𝘁 𝗔𝗣𝗜𝘀 𝗔𝗹𝗹 𝗔𝗿𝗼𝘂𝗻𝗱
+
+ • Spring loves builders — especially in Spring WebFlux, Spring Boot, and Spring Security.
+
+WebClient webClient = WebClient.builder()
+ .baseUrl("https://api.example.com")
+ .defaultHeader("Authorization", "Bearer token")
+ .build();
+
+📌 Use Case: Building immutable, configurable clients, requests, URIs, or application contexts.
+
+Other builders:
+ • SpringApplicationBuilder
+ • UriComponentsBuilder
+ • ServerResponse.ok()... (WebFlux)
+ • HttpSecurity in Spring Security
+
+✅ 𝟱. 𝗣𝗿𝗼𝘁𝗼𝘁𝘆𝗽𝗲 𝗣𝗮𝘁𝘁𝗲𝗿𝗻 – 𝗡𝗲𝘄 𝗕𝗲𝗮𝗻 𝗘𝘃𝗲𝗿𝘆 𝗧𝗶𝗺𝗲
+
+ • Using Prototype scope when needing a fresh instance every time a bean is requested.
+
+@Component
+@Scope("prototype")
+public class TaskProcessor {
+ // New object for every injection or retrieval
+}
+
+📌 Use Case: Stateless or request-scoped components like job handlers, form objects.
+
+hashtag#Java hashtag#SpringBoot hashtag#DesignPatterns hashtag#SoftwareDesign hashtag#CreationalDesignPatterns hashtag#SpringTips
