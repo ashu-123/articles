@@ -1,0 +1,38 @@
+𝗜𝗺𝗽𝗹𝗲𝗺𝗲𝗻𝘁𝗶𝗻𝗴 𝗙𝗶𝘅𝗲𝗱 𝗪𝗶𝗻𝗱𝗼𝘄 𝗖𝗼𝘂𝗻𝘁𝗲𝗿 𝗥𝗮𝘁𝗲 𝗟𝗶𝗺𝗶𝘁𝗶𝗻𝗴 𝗔𝗹𝗴𝗼𝗿𝗶𝘁𝗵𝗺 𝗶𝗻 𝗝𝗮𝘃𝗮 𝘂𝘀𝗶𝗻𝗴 𝗥𝗲𝗱𝗶𝘀
+
+The Fixed Window Counter is the simplest and most straightforward rate-limiting algorithm. It divides time into fixed intervals (e.g., seconds, minutes, or hours) & counts the number of requests within each interval. If the count exceeds a predefined threshold, the requests are rejected until the next interval begins.
+
+𝗦𝘁𝗲𝗽𝘀 𝘁𝗼 𝗶𝗺𝗽𝗹𝗲𝗺𝗲𝗻𝘁:
+
+1. Define a time interval - Choose a time interval, such as 1 second, 1 minute, or 1 hour.
+
+2. Track Requests - Use a counter to track the number of requests made during the current window.
+
+3. Reset Counter - At the end of the time window, reset the counter to zero and start counting again for the new window.
+
+4. Rate Limit Check - Compare the counter against the allowed limit. If it exceeds the limit, reject further requests until the next window.
+
+𝗜𝗺𝗽𝗹𝗲𝗺𝗲𝗻𝘁𝗮𝘁𝗶𝗼𝗻 𝗱𝗲𝘁𝗮𝗶𝗹𝘀:
+
+𝗝𝗲𝗱𝗶𝘀 is a popular Java library used to interact with Redis and I've used it for implementing our Rate Limiter because it provides a simple and intuitive API for executing Redis commands from JVM applications.
+
+The main job of this rate limiter is to check if a client is within their allowed request limit. If yes, the request is allowed, and the counter is updated. If not, the request is blocked. Each client’s request count is stored as a Redis key. 
+
+Redis’s GET command is used to check how many requests the client has made so far which is compared to the allowed limit. If the counter is less than the limit, the request is allowed else it’s blocked.
+
+Once the window expires, the key is automatically removed from Redis. The next request after that will define the start of a new window.
+
+𝗧𝗲𝘀𝘁𝗶𝗻𝗴 𝘁𝗵𝗲 𝗥𝗮𝘁𝗲 𝗟𝗶𝗺𝗶𝘁𝗲𝗿:
+
+To ensure the Fixed Window Rate Limiter behaves as expected, I've written tests for various scenarios. For this, I've employed the following tool:
+
+𝗥𝗲𝗱𝗶𝘀 𝗧𝗲𝘀𝘁𝗖𝗼𝗻𝘁𝗮𝗶𝗻𝗲𝗿𝘀: This library spins up an isolated Redis container for testing. This means we don’t need to rely on an external Redis server during our tests. Once the tests are done, the container is stopped, leaving no leftover data.
+
+I've tried covering the following test scenarios to ensure the implemented Rate Limiter works as expected
+
+1. Verifying Requests Within the Limit
+2. Verifying Requests Beyond the Limit
+3. Verifying Requests After Window Reset
+4. Verifying Independent Handling of Multiple Clients
+5. Verifying Requests Are Denied Until Fixed Window Resets
+6. Verifying Denied Requests Are Not Counted
