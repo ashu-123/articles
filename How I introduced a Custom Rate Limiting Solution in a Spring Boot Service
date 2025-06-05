@@ -1,0 +1,53 @@
+🚀 𝗛𝗼𝘄 𝗜 𝗜𝗻𝘁𝗿𝗼𝗱𝘂𝗰𝗲𝗱 𝗮 𝗖𝘂𝘀𝘁𝗼𝗺 𝗥𝗮𝘁𝗲 𝗟𝗶𝗺𝗶𝘁𝗶𝗻𝗴 𝗦𝗼𝗹𝘂𝘁𝗶𝗼𝗻 𝗶𝗻 𝗮 𝗦𝗽𝗿𝗶𝗻𝗴 𝗕𝗼𝗼𝘁 𝗦𝗲𝗿𝘃𝗶𝗰𝗲
+
+ • Today, I completed an exciting piece of work that’s been on my radar for a while — integrating custom rate limiting algorithms into my Spring Boot REST API service.
+
+ • This was done in order to learn about the little nuances of various Rate Limiting algorithms, gain flexibility and exercise control over how API rate limits are enforced at the backend.
+
+ • I had built a separate project to experiment with and implement various rate limiting strategies.
+
+ • Today, I packaged that project as a dependency and plugged it into my Spring Boot service via 𝘏𝘛𝘛𝘗 𝘧𝘪𝘭𝘵𝘦𝘳𝘴 — enabling fine-grained control over API traffic.
+
+🔧 𝗔𝗱𝘃𝗮𝗻𝘁𝗮𝗴𝗲𝘀 𝗼𝗳 𝗠𝘆 𝗖𝘂𝘀𝘁𝗼𝗺 𝗥𝗲𝗱𝗶𝘀-𝗕𝗮𝗰𝗸𝗲𝗱 𝗥𝗮𝘁𝗲 𝗟𝗶𝗺𝗶𝘁𝗲𝗿
+
+✅ 𝗔𝗹𝗴𝗼𝗿𝗶𝘁𝗵𝗺 𝗙𝗹𝗲𝘅𝗶𝗯𝗶𝗹𝗶𝘁𝘆
+Implemented multiple strategies — 𝘍𝘪𝘹𝘦𝘥 𝘞𝘪𝘯𝘥𝘰𝘸, 𝘚𝘭𝘪𝘥𝘪𝘯𝘨 𝘞𝘪𝘯𝘥𝘰𝘸, 𝘢𝘯𝘥 𝘛𝘰𝘬𝘦𝘯 𝘉𝘶𝘤𝘬𝘦𝘵 — allowing for tailored rate limiting based on endpoint usage patterns.
+
+✅ 𝗥𝗲𝗱𝗶𝘀-𝗣𝗼𝘄𝗲𝗿𝗲𝗱 𝗗𝗶𝘀𝘁𝗿𝗶𝗯𝘂𝘁𝗲𝗱 𝗖𝗼𝗻𝘀𝗶𝘀𝘁𝗲𝗻𝗰𝘆
+Leveraging 𝘙𝘦𝘥𝘪𝘴 (via Jedis) ensures consistent rate limiting across multiple instances in a microservices architecture, ideal for horizontal scaling.
+
+✅ 𝗙𝘂𝗹𝗹 𝗖𝗼𝗻𝘁𝗿𝗼𝗹 𝘃𝗶𝗮 𝗝𝗲𝗱𝗶𝘀
+Direct usage of Jedis gives granular control over Redis operations, TTLs, pipelining, and performance optimizations — no dependency on third-party wrappers or abstractions.
+
+✅ 𝗠𝗼𝗱𝘂𝗹𝗮𝗿 & 𝗘𝘅𝘁𝗲𝗻𝘀𝗶𝗯𝗹𝗲 𝗗𝗲𝘀𝗶𝗴𝗻
+The custom rate limiter is packaged as a reusable module, easily pluggable into any Spring Boot application via 𝘏𝘛𝘛𝘗 𝘧𝘪𝘭𝘵𝘦𝘳𝘴, with clean separation of concerns.
+
+⚙️ 𝗞𝗲𝘆 𝗜𝗺𝗽𝗹𝗲𝗺𝗲𝗻𝘁𝗮𝘁𝗶𝗼𝗻 𝗦𝘁𝗲𝗽𝘀:
+
+ 1. Packaged my rate-limiter project as a dependency and published to maven local
+
+ 2. Included the dependency in my gradle spring boot service
+ 
+ 3. Spun up a redis container
+
+ 4. Created a HTTP Filter to intercept the incoming HTTP Requests and tied up the requests to check for api request rate limitin
+
+ 5. If the desired rate limit is not breached, continue with the request
+
+ 6. Else, return a structured error response with error message - "𝗧𝗼𝗼 𝗺𝗮𝗻𝘆 𝗿𝗲𝗾𝘂𝗲𝘀𝘁𝘀. Please try later" with a HTTP status code of 429
+
+🌱 𝗙𝘂𝘁𝘂𝗿𝗲 𝗜𝗺𝗽𝗿𝗼𝘃𝗲𝗺𝗲𝗻𝘁𝘀:
+
+ • Designing for better scalability and improved distributed rate limiting
+
+ • On-the-fly Configuration Changes
+
+ • Designing for Precision and Efficiency avoiding potential issues with floating-point numbers
+
+👉 This was a valuable hands-on exercise in designing for reusability, implementing middleware, and applying real-world traffic control techniques.
+
+📂 Check Out the Code on GitHub:
+👉 https://lnkd.in/g-iZWB-J
+
+
+hashtag#SpringBoot hashtag#RateLimiting hashtag#RESTAPI hashtag#Java hashtag#Microservices hashtag#BackendDevelopment hashtag#SoftwareEngineering hashtag#APISecurity hashtag#Redis hashtag#Jedis
