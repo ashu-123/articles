@@ -1,0 +1,37 @@
+𝗜𝗺𝗽𝗹𝗲𝗺𝗲𝗻𝘁𝗶𝗻𝗴 𝗦𝗹𝗶𝗱𝗶𝗻𝗴 𝗪𝗶𝗻𝗱𝗼𝘄 𝗖𝗼𝘂𝗻𝘁𝗲𝗿 𝗥𝗮𝘁𝗲 𝗟𝗶𝗺𝗶𝘁𝗶𝗻𝗴 𝗔𝗹𝗴𝗼𝗿𝗶𝘁𝗵𝗺 𝗶𝗻 𝗝𝗮𝘃𝗮 𝘂𝘀𝗶𝗻𝗴 𝗥𝗲𝗱𝗶𝘀
+
+In a previous post, I had talked about the fixed window counter rate limiting algorithm. Let's understand the implementation of the Sliding Window Rate Limiting algorithm. The Sliding Window Counter approximates the request rate by dividing time into smaller intervals and counting requests within each interval. Using interval counts & weighted averages make it efficient and accurate to estimate the rolling window.
+
+𝗦𝘁𝗲𝗽𝘀 𝘁𝗼 𝗶𝗺𝗽𝗹𝗲𝗺𝗲𝗻𝘁:
+
+1. Define a Time Window - Choose a rolling time window.
+
+2. Track Requests - Divide the time window into smaller sub-intervals maintaining a counter for each sub-interval. Increment the counter for the current sub-interval as each request comes in.
+
+3. Remove Expired Intervals - Continuously clean up expired sub-intervals that fall outside the current rolling time window.
+
+4. Rate Limit Check - Calculate the total number of requests within the current rolling window by summing the counters for the active sub-intervals. If the total exceeds the allowed limit, reject new request else, allow them.
+
+𝗜𝗺𝗽𝗹𝗲𝗺𝗲𝗻𝘁𝗮𝘁𝗶𝗼𝗻 𝗱𝗲𝘁𝗮𝗶𝗹𝘀:
+
+𝗝𝗲𝗱𝗶𝘀 is a popular Java library used to interact with Redis and I've used it for implementing our Rate Limiter because it provides a simple and intuitive API for executing Redis commands from JVM applications.
+
+The first step is to store the count of requests for each sub-interval within the rolling window. Each request increments the counter for the current sub-interval.
+
+Next, clean up of entries is performed that fall outside the rolling time window ensuring request counts for only active sub-intervals within the rolling window reside in Redis.
+
+Finally, I retrieve all counts for the active sub-intervals summing them up to get the total number of requests within the rolling window. If it exceeds the limit, the new request is rejected else, allowed and the counter is updated.
+
+𝗧𝗲𝘀𝘁𝗶𝗻𝗴 𝘁𝗵𝗲 𝗥𝗮𝘁𝗲 𝗟𝗶𝗺𝗶𝘁𝗲𝗿:
+
+To ensure the Rate Limiter behaves as expected, I've written tests for various scenarios. For this, I've employed the following tool:
+
+𝗥𝗲𝗱𝗶𝘀 𝗧𝗲𝘀𝘁𝗖𝗼𝗻𝘁𝗮𝗶𝗻𝗲𝗿𝘀: This library spins up an isolated Redis container for testing. This means we don’t need to rely on an external Redis server during our tests. Once the tests are done, the container is stopped, leaving no leftover data.
+
+I've tried covering the following test scenarios to ensure the implementation works as expected
+
+1. Verifying Requests Within the Limit
+2. Verifying Requests Beyond the Limit
+3. Verifying Requests After Sliding Window Resets
+4. Verifying Independent Handling of Multiple Clients
+5. Verifying gradual requests allowance in sliding window
